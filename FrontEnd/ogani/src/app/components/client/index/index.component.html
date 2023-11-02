@@ -1,5 +1,43 @@
 <p-toast></p-toast>
 
+<p-sidebar [(visible)]="sidebarVisible" position="left" class="sidebar-mobile">
+  <h3>Menu</h3>
+  <!-- <div class="menu-sidebar">
+    <a (click)="closeSideBar()" routerLink="/">Home</a>
+    <a (click)="closeSideBar(); scrollToShop()" routerLink="/">Shop</a>
+    <a href="javascript:void(0)" (click)="closeSideBar()" class="sidebar-item">Pages
+      <div class="child-sidebar">
+        <a href="javascript:void(0)" (click)="closeSideBar()">Shop Details</a>
+        <a (click)="closeSideBar()" routerLink="/cart">Shoping Cart</a>
+        <a (click)="closeSideBar()" routerLink="/checkout">Check Out</a>
+        <a (click)="closeSideBar()" href="javascript:void(0)">Blog Details</a>
+      </div>
+    </a>
+    <a (click)="closeSideBar()" href="javascript:void(0)" routerLink="/blog">Blog</a>
+    <a (click)="closeSideBar()" href="javascript:void(0)" (click)="scrollToBottom()">Contact</a>
+  </div> -->
+  <div class="card flex justify-content-center border-none">
+    <p-panelMenu [model]="items" [style]="{'width':'100%'}" [multiple]="true"></p-panelMenu>
+  </div>
+  <!-- <div class="menu-sidebar">
+    <ul>
+      <li><a (click)="closeSideBar()" routerLink="/">Home</a></li>
+      <li><a (click)="closeSideBar(); scrollToShop()" routerLink="/">Shop</a></li>
+      <li><a href="javascript:void(0)" (click)="closeSideBar()" class="sidebar-item">Pages
+        </a>
+        <ul class="child-sidebar">
+          <li><a href="javascript:void(0)" (click)="closeSideBar()">Shop Details</a></li>
+          <li><a (click)="closeSideBar()" routerLink="/cart">Shoping Cart</a></li>
+          <li><a (click)="closeSideBar()" routerLink="/checkout">Check Out</a></li>
+          <li><a (click)="closeSideBar()" href="javascript:void(0)">Blog Details</a></li>
+        </ul>
+      </li>
+      <li><a (click)="closeSideBar()" href="javascript:void(0)" routerLink="/blog">Blog</a></li>
+      <li><a (click)="closeSideBar()" href="javascript:void(0)" (click)="scrollToBottom()">Contact</a></li>
+    </ul>
+  </div> -->
+</p-sidebar>
+
 <p-dialog [(visible)]="authModal" [style]="{width: '30vw'}" [baseZIndex]="10000" [modal]="true"
   [dismissableMask]="true">
   <p-tabView [scrollable]="false">
@@ -55,8 +93,9 @@
         <div class="col-lg-6 col-md-6">
           <div class="header__top__left">
             <ul>
-              <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+              <li><i class="fa fa-envelope"></i> phamnhattan11112001@gmail.com</li>
               <li>Free Shipping for all Order of $99</li>
+              <!-- <li>Current time: {{ currentTime | date:'hh:mm:ss ' }}</li> -->
             </ul>
           </div>
         </div>
@@ -105,11 +144,11 @@
                   <ul>
                     <li *ngFor="let product of wishlistService.items" class="cart-box">
                       <div class="cart-box-image p-2">
-                        <a href="javascript:void(0)" class="block"><img
+                        <a [routerLink]="'/product/' + product.id" class="block"><img
                             src="{{'data:image/jpg;base64,' + product.images[0].data}}" alt="" width="40px"></a>
                       </div>
                       <div class="cart-box-text">
-                        <a href="javascript:void(0)">{{product.name}}</a>
+                        <a [routerLink]="'/product/' + product.id">{{product.name}}</a>
                       </div>
                       <button pButton pRipple type="button" icon="pi pi-times"
                         class="p-button-rounded p-button-danger p-button-text"
@@ -131,7 +170,7 @@
                             src="{{'data:image/jpg;base64,' + product.images[0].data}}" alt="" width="40px"></a>
                       </div>
                       <div class="cart-box-text">
-                        <a href="javascript:void(0)">{{product.name}}</a>
+                        <a [routerLink]="'/product/' + product.id">{{product.name}}</a>
                         <div><span>{{product.quantity}} x </span>{{product.price | currency}}
                         </div>
                       </div>
@@ -156,6 +195,7 @@
             <li>
               <a href="javascript:void(0)" (click)="showAuthForm()" *ngIf="!isLoggedIn"><fa-icon
                   [icon]="userIcon"></fa-icon></a>
+              <!-- <a routerLink="/login" *ngIf="!isLoggedIn"><fa-icon [icon]="userIcon"></fa-icon></a> -->
               <a href="javascript:void(0)" (click)="profile.toggle($event)" *ngIf="isLoggedIn"><fa-icon
                   [icon]="userIcon"></fa-icon></a>
               <p-overlayPanel #profile>
@@ -180,9 +220,18 @@
         </div>
       </div>
     </div>
-    <div class="humberger__open">
+    <!-- ======================================================================================================= -->
+    <!-- ======================================================================================================= -->
+    <!-- ======================================================================================================= -->
+    <!-- ======================================================================================================= -->
+    <!-- ======================================================================================================= -->
+    <button (click)="sidebarVisible = true" class="humberger__open"
+      attr.aria-controls="{{sidebarVisible ? 'sidebar' : null}}"
+      attr.aria-expanded="{{sidebarVisible ? true : false}}"><i class="fa-solid fa-bars"
+        style="color: #ffffff;"></i></button>
+    <!-- <div class="humberger__open" (click)="openNavMenu()">
       <i class="fa fa-bars"></i>
-    </div>
+    </div> -->
   </div>
 </header>
 <section class="hero">
@@ -191,12 +240,16 @@
       <div class="col-lg-3">
         <div class="hero__categories">
           <div class="hero__categories__all" (click)="showDepartmentClick()">
-            <fa-icon [icon]="bars"></fa-icon>
-            <span>All departments</span>
+            <div>
+              <fa-icon [icon]="bars"></fa-icon>
+              <span>All department</span>
+            </div>
+            <i class="fa-solid fa-caret-down"></i>
           </div>
           <ul *ngIf="showDepartment">
             <li>
-              <a *ngFor="let category of listCategoryEnabled" routerLink="category/{{category.id}}" class="showDepartment">{{category.name}}</a>
+              <a *ngFor="let category of listCategoryEnabled" routerLink="category/{{category.id}}"
+                class="showDepartment">{{category.name}}</a>
             </li>
           </ul>
         </div>
@@ -207,16 +260,19 @@
             <form action="#">
               <div class="hero__search__categories">
                 All Categories
-                <span class="arrow_carrot-down"></span>
+                <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                <!-- <i class="fa-solid fa-caret-down"></i> -->
               </div>
-              <input type="text" placeholder="What do yo u need?" [(ngModel)]="keyword" name="keyword">
+              <input type="text" placeholder="Search..." [(ngModel)]="keyword" name="keyword">
               <button class="site-btn" routerLink="/search/{{keyword}}">SEARCH</button>
             </form>
           </div>
           <div class="hero__search__phone">
-            <div class="hero__search__phone__icon">
-              <fa-icon [icon]="phone"></fa-icon>
-            </div>
+            <a href="tel:+1234567890" class="hero__search__phone__icon">
+              <div>
+                <i class="fa-solid fa-phone" style="color: #7fad39;"></i>
+              </div>
+            </a>
             <div class="hero__search__phone__text">
               <h5>+84 0838323567</h5>
               <span>support 24/7 time</span>
@@ -287,5 +343,5 @@
   </div>
 </footer>
 
-
+<!-- scroll to top -->
 <p-scrollTop styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>

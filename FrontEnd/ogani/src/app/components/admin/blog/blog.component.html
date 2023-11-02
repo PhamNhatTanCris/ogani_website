@@ -13,7 +13,7 @@
                 <h5 class="m-0">Manage Blog</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Tìm kiếm" />`
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Tìm kiếm" />
                 </span>
             </div>
         </ng-template>
@@ -89,17 +89,17 @@
                         <button pButton (click)="file.click()" label="Tải ảnh lên" icon="pi pi-plus" class="p-button-warning w-auto"></button>
                     </div>
                     <div>
-                        <button pButton class="p-button-primary w-auto" label="Chọn ảnh" [disabled]="disabled" (click)="chooseImage()"></button>
+                        <button pButton class="p-button-primary ml-2 mb-2 w-auto" label="Chọn ảnh" [disabled]="disabled" (click)="chooseImage()"></button>
                         <button pButton class="p-button-danger ml-2 w-auto" icon="pi pi-trash " label="Xóa ảnh" [disabled]="disabled"></button>
                     </div>
                 </div>
-                <p-divider align="left" >
+                <p-divider align="center" >
                     Ảnh đã tải lên
                 </p-divider>
                 <div class="grid">
-                    <div class="col-4 list-image flex align-items-center" *ngFor="let image of listImage" >
+                    <button class="col-4 list-image flex align-items-center p-ripple p-element p-button p-component" *ngFor="let image of listImage" >
                         <img src="{{'data:image/jpg;base64,' + image.data}}" alt="" class="w-full h-full p-2 border-1 " (click)="selectImage($event,image)" >
-                    </div>
+                    </button>
                 </div>
             </p-dialog>
             <div class="grid mt-1" *ngIf="image != null">

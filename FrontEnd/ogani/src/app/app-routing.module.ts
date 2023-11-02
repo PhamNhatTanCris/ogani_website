@@ -46,7 +46,8 @@ const routes: Routes = [
       { path: 'tag/:name', component: BlogClientComponent},
       { path: 'user', component: UserDetailComponent, canActivate: [AuthGuardService] },
       { path: 'my-order', component: MyOrderComponent, canActivate: [AuthGuardService] },
-      { path: 'search/:keyword', component: SearchComponent }
+      { path: 'search/:keyword', component: SearchComponent },
+      
     ]
   },
   { path: 'login', component: LoginPageComponent }

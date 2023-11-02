@@ -75,7 +75,13 @@ export class HomeComponent implements OnInit {
       src: 'assets/image/cat-5.jpg',
       alt: '',
       title: 'Fresh Meat'
-    }
+    },
+    // {
+    //   id: 6,
+    //   src: 'assets/image/quaChuoi.jpg',
+    //   alt: '',
+    //   title: 'Fresh Bananas'
+    // }
   ];
 
   constructor(private productSerive: ProductService, private cartService: CartService, private wishlistService: WishlistService, private messageService: MessageService, private elementRef: ElementRef) { }
@@ -104,14 +110,16 @@ export class HomeComponent implements OnInit {
 
   addToCart(item: any) {
     this.cartService.getItems();
-    this.showSuccess("Add To Cart Successfully!")
+    this.showSuccess("Thêm sản phẩm vào giỏ hàng thành công!")
     this.cartService.addToCart(item, 1);
   }
 
   addToWishList(item: any) {
     if (!this.wishlistService.productInWishList(item)) {
-      this.showSuccess("Add To Wishlist Successfully!")
+      this.showSuccess("Đã thêm vào danh sách yêu thích!")
       this.wishlistService.addToWishList(item);
+    } else {
+      this.showWarn('Sản phẩm đã có trong danh sách yêu thích!')
     }
   }
 

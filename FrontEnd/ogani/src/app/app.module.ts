@@ -48,6 +48,8 @@ import { MyOrderComponent } from './components/client/my-order/my-order.componen
 import { SearchComponent } from './components/client/search/search.component';
 import { LoginPageComponent } from './components/client/login-page/login-page.component';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { SidebarModule } from 'primeng/sidebar';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,9 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     SliderModule,
     DataViewModule,
     MultiSelectModule,
-    ScrollTopModule
+    ScrollTopModule,
+    SidebarModule,
+    PanelMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

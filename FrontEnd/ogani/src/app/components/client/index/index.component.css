@@ -53,3 +53,72 @@
 .showDepartment:hover {
   color: #7fad39;
 }
+
+.search-phone a {
+  font-size: 30px;
+}
+
+.hero__search__phone__icon:hover {
+  background-color: #7fad39;
+  cursor: pointer;
+}
+
+.hero__search__phone__icon:hover i {
+  color: #FFFFFF !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .hero__search__phone__icon {
+    margin-left: 0 !important;
+  }
+}
+
+.sidebar-mobile h3 {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #7fad39;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.menu-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-sidebar>ul>li>a {
+  color: #252525;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 100%;
+}
+
+.menu-sidebar li a {
+  display: block;
+  width: 100%;
+}
+
+.menu-sidebar ul li a:hover {
+  color: #ffffff;
+  background-color: #7fad39;
+}
+
+
+
+.child-sidebar {
+  display: none;
+}
+
+.menu-sidebar ul li:hover .child-sidebar {
+  display: block;
+}
+
+.child-sidebar li a{
+  color: #252525;
+  font-weight: 700;
+  padding: 10px;
+  margin-left: 20px;
+  font-size: 0.9rem;
+  margin-right: 10px;
+}

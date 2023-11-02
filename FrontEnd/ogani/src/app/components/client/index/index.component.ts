@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { faBars, faHeart, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
+import { every } from 'rxjs';
 import { AuthService } from 'src/app/_service/auth.service';
 import { CartService } from 'src/app/_service/cart.service';
 import { CategoryService } from 'src/app/_service/category.service';
@@ -19,7 +20,8 @@ import { WishlistService } from 'src/app/_service/wishlist.service';
 
 })
 export class IndexComponent implements OnInit {
-
+  sidebarVisible: boolean = false;
+  currentTime!: Date;
   listItemInCart: any[] = [];
   totalPrice = 0;
   heart = faHeart;
@@ -29,6 +31,8 @@ export class IndexComponent implements OnInit {
   logoutIcon = faRightFromBracket;
   bars = faBars;
 
+
+  items!: MenuItem[];
   showDepartment = false;
 
 
@@ -73,6 +77,65 @@ export class IndexComponent implements OnInit {
     this.isLoggedIn = this.storageService.isLoggedIn();
     this.wishlistService.loadWishList();
     this.cartService.loadCart();
+
+    setInterval(() => {
+      this.currentTime = new Date()
+    }, 1000)
+
+    this.items = [
+      {
+        label: 'HOME',
+        icon: 'pi pi-fw pi-home',
+        command: () => this.closeSideBar(),
+        routerLink: '/',
+
+      },
+      {
+        label: 'SHOP',
+        icon: 'pi pi-fw pi-shopping-bag',
+        command: () => this.scrollToShop(),
+        routerLink: '/',
+      },
+      {
+        label: 'PAGES',
+        icon: 'pi pi-fw pi-file',
+        items: [
+          {
+            label: 'Shop Details',
+            command: () => this.closeSideBar(),
+            routerLink: '',
+          },
+          {
+            label: 'Shoping Cart',
+            command: () => this.closeSideBar(),
+            routerLink: '/cart',
+          },
+          {
+            label: 'Check Out',
+            routerLink: '/checkout',
+            command: () => this.closeSideBar(),
+          },
+          {
+            label: 'Blog Details',
+            command: () => this.closeSideBar(),
+            routerLink: '',
+          },
+        ]
+      },
+      {
+        label: 'BLOG',
+        icon: 'pi pi-fw pi-book',
+        command: () => this.closeSideBar(),
+        routerLink: '/blog',
+      },
+      {
+        label: 'CONTACT',
+        icon: 'pi pi-fw pi-phone',
+        routerLink: '',
+        command: () => this.scrollToBottom(),
+
+      }
+    ];
   }
 
   showDepartmentClick() {
@@ -116,13 +179,13 @@ export class IndexComponent implements OnInit {
         this.isLoginFailed = false;
         this.roles = this.storageService.getUser().roles;
 
-        if (this.roles[0] == "ROLE_ADMIN") {
+        if (this.roles[0] == "ROLE_ADMIN" || this.roles[1] == "ROLE_ADMIN" || this.roles[2] == "ROLE_ADMIN") {
           this.showSuccess("Đăng nhập quyền admin thành công!!");
           this.router.navigate(['/admin']);
-          console.log(this.roles[0]);
+          console.log(this.roles);
         } else {
           this.showSuccess("Đăng nhập thành công!!");
-          console.log(this.roles[0]);
+          console.log(this.roles);
         }
         this.authModal = false;
 
@@ -170,8 +233,13 @@ export class IndexComponent implements OnInit {
     })
   }
 
+  openNavMenu() {
 
+  }
 
+  closeSideBar() {
+    this.sidebarVisible = false;
+  }
 
   showSuccess(text: string) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: text });
@@ -185,11 +253,13 @@ export class IndexComponent implements OnInit {
   }
 
   scrollToBottom() {
+    this.sidebarVisible = false;
     const element = this.elementRef.nativeElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
   scrollToShop() {
+    this.sidebarVisible = false;
     const element = this.elementRef.nativeElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     window.scrollBy(0, 1000);

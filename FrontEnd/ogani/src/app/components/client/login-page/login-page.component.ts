@@ -46,14 +46,14 @@ export class LoginPageComponent implements OnInit {
         this.isLoggedIn = true;
         this.isLoginFailed = false;
         this.roles = this.storageService.getUser().roles;
-        if (this.roles[0] == "ROLE_ADMIN") {
+        if (this.roles[0] == "ROLE_ADMIN" || this.roles[1] == "ROLE_ADMIN" || this.roles[2] == "ROLE_ADMIN") {
           this.showSuccess("Đăng nhập quyền admin thành công!!");
           this.router.navigate(['/admin']);
-          console.log(this.roles[0]);
+          console.log(this.roles);
         } else {
           this.showSuccess("Đăng nhập thành công!!");
           this.router.navigate(['/checkout']);
-          console.log(this.roles[0]);
+          console.log(this.roles);
         }
 
       }, error: err => {

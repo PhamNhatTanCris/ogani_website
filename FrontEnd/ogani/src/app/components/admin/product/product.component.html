@@ -15,7 +15,7 @@
                 <h5 class="m-0">Manage Products</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Tìm kiếm" />`
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Tìm kiếm" />
                 </span>
             </div>
         </ng-template>
@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        
+
         <div class="formgrid grid">
             <div class="field col">
                 <label for="price">Price</label>
@@ -93,24 +93,25 @@
 
         <div class="field">
             <button pButton type="button" class="p-button-success w-auto" (click)="onChooseImage()"> Chọn ảnh</button>
-            <p-dialog header="Chọn ảnh" [(visible)]="showImage" position="top" [modal]="true" [style]="{width: '40vw'}" [transitionOptions]="'.3s'">
+            <p-dialog header="Chọn ảnh" [(visible)]="showImage" position="top" [modal]="true" [style]="{width: '50vw'}" [transitionOptions]="'.3s'">
                 <div class="flex justify-content-between">
                     <div>
                         <input type="file" #file (change)="uploadFile($event)" hidden>
                         <button pButton (click)="file.click()" label="Tải ảnh lên" icon="pi pi-plus" class="p-button-warning w-auto"></button>
                     </div>
                     <div>
-                        <button pButton (click)="chooseImage()" class="p-button-primary w-auto" label="Chọn ảnh" [disabled]="disabled"></button>
-                        <button pButton class="p-button-danger ml-2 w-auto" icon="pi pi-trash " label="Xóa ảnh" [disabled]="disabled"></button>
+                        <button pButton (click)="chooseImage()" class="p-button-primary ml-2 mb-2 w-auto" label="Chọn ảnh" [disabled]="disabled"></button>
+                        <button pButton (click)="deleteImage()" class="p-button-danger ml-2 w-auto" icon="pi pi-trash " label="Xóa ảnh" [disabled]="disabled"></button>
                     </div>
                 </div>
-                <p-divider align="left" >
+                <p-divider align="center" >
                     Ảnh đã tải lên
                 </p-divider>
                 <div class="grid">
-                    <div class="col-4 list-image flex align-items-center" *ngFor="let image of listImage" >
-                        <img src="{{'data:image/jpg;base64,' + image.data}}" alt="" class="w-full h-full p-2 border-1 " (click)="selectImage($event,image)" >
-                    </div>
+                    <button class="col-4 list-image flex align-items-center p-ripple p-element p-button p-component" *ngFor="let image of listImage" severity="secondary">
+                        <img src="{{'data:image/jpg;base64,' + image.data}}" alt="" class="w-full h-full" (click)="selectImage($event,image)" >
+                    </button>
+
                 </div>
 
             </p-dialog>

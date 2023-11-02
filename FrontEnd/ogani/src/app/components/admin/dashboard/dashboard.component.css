@@ -1,0 +1,26 @@
+#accordionSidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 100%;
+}
+
+#content-wrapper {
+  margin-left: 14rem;
+}
+
+#content {
+  min-height: 729px;
+}
+
+.nav-item a {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #content-wrapper {
+    margin-left: 6.5rem;
+  }
+
+}

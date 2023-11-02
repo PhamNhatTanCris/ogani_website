@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { text } from '@fortawesome/fontawesome-svg-core';
 import { faHeart, faRetweet, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
 import { CartService } from 'src/app/_service/cart.service';
@@ -34,7 +35,8 @@ export class ShopComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public cartService:CartService,
-    public wishlistService:WishlistService){
+    public wishlistService:WishlistService,
+    public messageService: MessageService){
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
   }
@@ -91,12 +93,28 @@ export class ShopComponent implements OnInit {
   addToCart(item: any){
     this.cartService.getItems();
     this.cartService.addToCart(item,1);
+    this.showSuccess('Thêm sản phẩm vào giỏ hàng thành công');
   }
 
   addToWishList(item: any){
     if(!this.wishlistService.productInWishList(item)){
       this.wishlistService.addToWishList(item);
+      this.showSuccess('Đã thêm vào danh sách yêu thích');
+    } else {
+      this.showWarn('Sản phẩm đã có trong danh sách yêu thích!!!')
     }
+  }
+
+  showSuccess(text: string){
+    return this.messageService.add({severity: 'success', summary: 'Success', detail: text})
+  }
+
+  showError(text: string){
+    return this.messageService.add({severity: 'error', summary: 'Error', detail: text})
+  }
+
+  showWarn(text: string){
+    return this.messageService.add({severity: 'warn', summary: 'Warn', detail: text})
   }
 
 }
